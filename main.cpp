@@ -20,7 +20,7 @@ std::string get_server() {
     std::string url = "https://api.gofile.io/getServer";
     CURL* curl = curl_easy_init();
     if (!curl) {
-        std::cerr << "Failed to initialize CURL" << std::endl;
+        std::cerr << "Failed to initialize CURL" << nl;
         return "";
     }
     curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
@@ -30,14 +30,14 @@ std::string get_server() {
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
     CURLcode res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
-        std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
+        std::cerr << "Error: " << curl_easy_strerror(res) << nl;
         curl_easy_cleanup(curl);
         return "";
     }
     long http_code = 0;
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
     if (http_code != 200) {
-        std::cerr << "Error: HTTP " << http_code << std::endl;
+        std::cerr << "Error: HTTP " << http_code << nl;
         curl_easy_cleanup(curl);
         return "";
     }
@@ -49,7 +49,7 @@ std::string upload(const std::string& server, const std::string& filepath) {
     std::string url = "https://" + server + ".gofile.io/uploadFile";
     CURL* curl = curl_easy_init();
     if (!curl) {
-        std::cerr << "Failed to initialize CURL" << std::endl;
+        std::cerr << "Failed to initialize CURL" << nl;
         return "";
     }
     curl_mime* mime;
@@ -70,7 +70,7 @@ std::string upload(const std::string& server, const std::string& filepath) {
 
     CURLcode res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
-        std::cerr << "Error: " << curl_easy_strerror(res) << std::endl;
+        std::cerr << "Error: " << curl_easy_strerror(res) << nl;
         curl_easy_cleanup(curl);
         curl_mime_free(mime);
         return "";
@@ -78,7 +78,7 @@ std::string upload(const std::string& server, const std::string& filepath) {
     long http_code = 0;
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);
     if (http_code != 200) {
-        std::cerr << "Error: HTTP " << http_code << std::endl;
+        std::cerr << "Error: HTTP " << http_code << nl;
         curl_easy_cleanup(curl);
         curl_mime_free(mime);
         return "";
@@ -98,7 +98,7 @@ int main() {
             break;
         } else {
             system("cls");
-            std::cout << "File does not exist!" << std::endl;
+            std::cout << "File does not exist!" << nl;
         }
     }
     std::string response = get_server();
@@ -126,3 +126,4 @@ int main() {
     std::cout << total.str() << nl;
     return 0;
 }
+
