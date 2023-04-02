@@ -14,7 +14,7 @@ Clone the repository and compile the source code:
 ```bash
 git clone https://github.com/dynastyoak/Gofile-uploader-cpp.git
 cd Gofile-uploader-cpp
-g++ -o Gofile-uploader-cpp main.cpp -lcurl
+g++ -o gofile-uploader main.cpp -lcurl
 ```
 
 ## Usage
